@@ -1,0 +1,27 @@
+name: dotfiles
+version: 1.0.0
+backup:
+  target: ./data/
+  home:
+    - .config/git/
+    - .config/go/
+    - .kube/config
+    - .oh-my-zsh/custom/
+    - .ssh/
+    - .zshrc
+  ignore:
+    - .oh-my-zsh/custom/**/example*
+    - .ssh/authorized_keys
+    - .ssh/known_hosts
+  encrypt:
+    - .bash_secret
+    - .kube/config
+    - .oh-my-zsh/custom/drone.zsh
+    - .ssh/
+  plugins:
+    docker-credential-helper:
+      command: php
+      encrypt: true
+    crontab:
+      backup: ["crontab", "-l"]
+      recover: ["crontab", "-"]

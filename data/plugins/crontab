@@ -1,0 +1,2 @@
+PATH=/usr/local/bin:/usr/bin:/bin
+1	10	*	*	1-5	brew update && brew upgrade && brew cleanup

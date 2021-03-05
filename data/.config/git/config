@@ -1,0 +1,23 @@
+[core]
+	mergeOptions = --no-edit
+	quotePath = off
+[pull]
+	rebase = true
+[user]
+	name = James
+	email = 168262+fatindeed@users.noreply.github.com
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[alias]
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	clear = clean -df
+	ignored-status = status --ignored
+	workuser = !git config user.name "James Zhu" && git config user.email "jameszh2@cisco.com"
+[url "ssh://git@wwwin-github.cisco.com/"]
+	insteadOf = https://wwwin-github.cisco.com/
+[credential]
+	helper = "!f() { /home/vscode/.vscode-server/bin/ea3859d4ba2f3e577a159bc91e3074c5d85c0523/node /tmp/vscode-remote-containers-beaf390215e377b88f9b7fddfea7f78888081b7c.js $*; }; f"
