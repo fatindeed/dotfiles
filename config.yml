@@ -1,0 +1,28 @@
+name: dotfiles
+version: 1.0.0
+backup:
+  target: ./data/
+  home:
+    - .config/git/
+    - .config/go/
+    - .kube/config
+    - .oh-my-zsh/custom/
+    - .ssh/config
+    - .env
+    - .zshrc
+  ignore:
+    - .oh-my-zsh/custom/**/example*
+  encrypt:
+    - .config/
+    - .kube/config
+    - .ssh/
+    - .env
+  plugins:
+    crontab:
+      backup: ["crontab", "-l"]
+      recover: ["crontab", "-"]
+encrypt:
+  template: AES256_GCM
+  keypath: "op://Automation/dotfiles/keyset.json"
+  passphrase: "op://Automation/dotfiles/passphrase"
+  masterkeyuri: ""

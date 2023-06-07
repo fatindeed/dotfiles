@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# multiline output as array
+REMOTES=($(git remote))
+if [ ${#REMOTES[@]} -gt 1 ]; then
+    PS3="Select one remote to publish: "
+    select REMOTE in "${REMOTES[@]}"
+    do
+        if [ ! -z "$REMOTE" ]; then
+            break
+        fi
+        >&2 echo "Invalid choice"
+    done
+elif [ ${#REMOTES[@]} -eq 1 ]; then
+    REMOTE="${REMOTES[0]}"
+else
+    >&2 echo "No remote found"
+fi
+
+REMOTE_OUTPUT=$(git remote show $REMOTE)
+if [ 0 -ne $? ]; then
+    exit 1
+fi
+
+set -e
+
+# https://stackoverflow.com/questions/3878624/how-do-i-programmatically-determine-if-there-are-uncommitted-changes
+if [[ ! -z $(git status -s) ]]; then
+    >&2 echo "You have uncommitted changes on this branch."
+    >&2 echo "Please commit them first."
+    exit 1
+fi
+
+echo "DANGEROUS: git republish will delete all commit history and push it to remote."
+echo "Before you start the job, you must confirm remote branch IS NOT PROTECTED."
+echo "$REMOTE_OUTPUT"
+read -n 1 -p "Are you sure to continue? [Y/N] "
+echo # (optional) move to a new line
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    git checkout --orphan "tmp_$BRANCH"
+    git add .
+    git commit -am "Initial commit"
+    git branch -D "$BRANCH"
+    git branch -m "$BRANCH"
+    git push -u -f "$REMOTE" "$BRANCH"
+fi

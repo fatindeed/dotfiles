@@ -1,0 +1,17 @@
+name: dotfiles
+version: 1.0.0
+backup:
+  target: ../../data/
+  home:
+    - .config/git/
+    - .config/go/
+    # - .oh-my-zsh/custom/
+  ignore:
+    - .config/git/config
+  encrypt:
+    - .config/
+encrypt:
+  template: AES256_GCM
+  keypath: "op://Automation/dotfiles/keyset.json"
+  passphrase: "op://Automation/dotfiles/passphrase"
+  masterkeyuri: ""
