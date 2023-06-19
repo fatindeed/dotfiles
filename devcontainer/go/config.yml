@@ -12,6 +12,6 @@ backup:
     - .config/
 encrypt:
   template: AES256_GCM
-  keypath: "op://Automation/dotfiles/keyset.json"
-  passphrase: "op://Automation/dotfiles/passphrase"
+  key_path: "s3://devel/dotfiles/keyset.json"
+  pass_path: "s3://devel/dotfiles/passphrase"
   masterkeyuri: ""

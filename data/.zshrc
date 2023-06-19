@@ -81,6 +81,7 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$PATH:$HOME/.local/bin"
 fi
 export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+export COMPOSE_PROJECT_NAME=vscode
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
