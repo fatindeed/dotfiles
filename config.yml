@@ -23,6 +23,6 @@ backup:
       recover: ["crontab", "-"]
 encrypt:
   template: AES256_GCM
-  key_path: "s3://devel/dotfiles/keyset.json"
-  pass_path: "s3://devel/dotfiles/passphrase"
+  key_path: hcp://dotfiles/keyset
+  pass_path: hcp://dotfiles/passphrase
   masterkeyuri: ""
